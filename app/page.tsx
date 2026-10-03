@@ -22,7 +22,7 @@ export default function Home() {
         </section>
         <section className="min-h-[calc(100dvh-3rem)] flex flex-col justify-evenly items-center mx-">
             <h2 className="text-3xl font-bold text-primary lg:text-5xl">Features</h2>
-          <div className="flex flex-col lg:gap-20">
+          <div className="flex flex-col lg:flex-row lg:gap-20">
               <div className="p-4 my-5 text-center w-50 h-60 rounded-2xl flex flex-col
                 gap-10 lg:w-60 lg:h-90 hover:shadow-xl/30 shadow-text transition-shadow">
                 <h3 className="text-bold text-amber-100 text-[20px] mt-5 lg:text-3xl">Track Your Habits</h3>
