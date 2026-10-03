@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import MenuNav from "@/components/menu";
-import MenuLg from "@/components/menuLg";
+import MenuLg from "@/components/menuLg"; //test
 
 export const metadata: Metadata = {
   title: "Streak Habits App",
