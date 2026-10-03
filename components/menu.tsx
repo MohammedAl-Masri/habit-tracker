@@ -3,6 +3,7 @@
 import { Menu, X } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
+import { logoutAction } from "@/lib/action"
 
 const MenuNav = () => {
     const [isOpen, setIsOpen] = useState(false)
@@ -36,6 +37,11 @@ const MenuNav = () => {
                     </li>
                     <li>
                         <Link onClick={closeMenu} href={'/register'}>Signin</Link>
+                    </li>
+                    <li>
+                        <form action={logoutAction}>
+                            <button type="submit">Log out</button>
+                        </form>
                     </li>
                 </ul>
             ) : <ul className="absolute inset-x-65 top-16 opacity-0
