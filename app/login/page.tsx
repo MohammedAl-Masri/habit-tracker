@@ -1,11 +1,14 @@
 'use client'
 
 import { LoginAction } from "@/lib/action"
+import { useActionState } from "react"
 
 const LogInPage = () => {
+    const [state, action] = useActionState(LoginAction, null)
+
     return (
         <div className="min-h-[calc(100dvh-6rem)] items-center min-w-screen flex">
-                <form action={LoginAction} className="text-center w-55 h-70 rounded-2xl flex flex-col
+                <form action={action} className="text-center w-55 h-70 rounded-2xl flex flex-col
                 items-center gap-10 p-5 m-auto justify-between shadow-md shadow-primary
                 lg:w-80 lg:h-100">
                     <div className="h-25 flex justify-between flex-col items-center
@@ -14,6 +17,9 @@ const LogInPage = () => {
                         placeholder="Email..."/>
                         <input className="outline-none border-b-2 lg:py-2" name="password" type="password"
                         placeholder="Password..."/>
+                        <div className="text-red-600 absolute bottom-75 text-[18px]">
+                            {state?.error && <p>{state.error}</p>}
+                        </div>
                     </div>
                     <div>
                         <button className="bg-primary px-8 py-2 rounded-3xl hover:scale-105 transition

@@ -22,7 +22,7 @@ const RegisterPage = () => {
                     <input className="outline-none border-b-2 lg:py-2" name="password" type="password"
                         placeholder="Password"/>
                 </div>
-                    <div className="text-red-600 absolute bottom-60 text-[20px]">
+                    <div className="text-red-600 absolute bottom-60 text-[18px]">
                         {state?.error && <p>{state.error}</p>}
                     </div>
                 <div>

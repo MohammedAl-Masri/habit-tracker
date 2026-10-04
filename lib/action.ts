@@ -6,17 +6,18 @@ import { revalidatePath } from "next/cache"
 import { z } from "zod"
 
 
-export const LoginAction = async (formData : FormData) =>{
+export const LoginAction = async (prevState : unknown, formData : FormData) =>{
     const password = formData.get('password')
     const email = formData.get('email')
     const userSchema = z.object({
-        email: z.email(),
-        password: z.string()
+        email: z.email('Email is not valid'),
+        password: z.string().min(8, 'Password must be at lest 8 characters')
     })
     const result = userSchema.safeParse({email, password})
-    if(!result.success) return
+    if(!result.success) return {success: false, error: result.error.issues[0].message}
     
     await signIn('credentials',{email, password, redirectTo: '/'})
+    return{success: true}
 }
 
 export const registerAction = async (prevState : unknown, fromData : FormData) =>{
