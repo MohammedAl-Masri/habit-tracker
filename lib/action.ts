@@ -4,7 +4,6 @@ import bcrypt  from "bcryptjs"
 import { prisma } from "./db"
 import { revalidatePath } from "next/cache"
 import { z } from "zod"
-import { error } from "console"
 
 
 export const LoginAction = async (formData : FormData) =>{
@@ -20,18 +19,18 @@ export const LoginAction = async (formData : FormData) =>{
     await signIn('credentials',{email, password, redirectTo: '/'})
 }
 
-export const registerAction = async (fromData : FormData) =>{
+export const registerAction = async (prevState : unknown, fromData : FormData) =>{
     const name = fromData.get('name') as string
     const email = fromData.get('email') as string
     const password = fromData.get('password') as string
     const userSchema = z.object({
         name: z.string().min(2, 'Name must be at lest 2 characters'),
         email: z.email('Email is not valid'),
-        password: z.string().min(8, 'Password must be at lest 8 characters')
+        password: z.string().min(8, 'Password must be at lest 8 characters'),
     })
     const result = userSchema.safeParse({name, email, password})
-    if(!result.success) return 
-
+    if(!result.success) return {success: false, error: result.error.issues[0].message}
+    
     const hashedPassword = await bcrypt.hash(password, 10)
     await prisma.user.create({
         data:{
@@ -40,6 +39,7 @@ export const registerAction = async (fromData : FormData) =>{
             password: hashedPassword
         }
     })
+    return{success: true}
 }
 
 export const addHabit = async (fromData : FormData)=>{
@@ -54,6 +54,7 @@ export const addHabit = async (fromData : FormData)=>{
             userId
         }
     })
+
 
     revalidatePath('http://localhost:3000/dashboard')
 }
