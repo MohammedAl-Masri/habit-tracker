@@ -7,3 +7,7 @@
     --color-secondary:#3F4045;
     --color-card:#30292F;
 }
+
+body {
+    background: linear-gradient(to bottom right, #171717, #262626, #404040);
+}
